@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./LoginScreen.Module.css";
+import classes from "./LoginScreen.module.css";
 import { useRef, useState } from "react";
 
 function LoginScreen() {
