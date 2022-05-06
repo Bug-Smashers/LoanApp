@@ -36,13 +36,11 @@ function LoginScreen() {
             onChange={handlePassword}
           />
         </div>
-        <br />
+        
         <div className={classes.pass}>
           <a href="#">Forgot Password?</a>
         </div>
-        <br />
         <input type="submit" value="Login"/>
-
         <div className={classes.signup_link}>
           Not a member? <a href="#">Signup</a>
         </div>
