@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./LoginScreen.Module.css";
+import classes from "./LoginScreen.module.css";
 import { useRef, useState } from "react";
 
 function LoginScreen() {
@@ -12,32 +12,49 @@ function LoginScreen() {
     setpassword(e.target.value);
   };
   return (
-    <div className={classes.Main}>
-      <div className={classes.Logo}>
-        <p>LOGO</p>
-      </div>
-      <div className={classes.box}>
+    <body>
+    <div className={classes.center}>
+      <h1>Login</h1><br />
         <form>
-          <label>Username</label>
-          <input
+        <div class="txt_field">
+        <label>Email or Username</label>
+        <br />
+        <input
             type="text"
             value={username}
-            placeholder="username"
+            placeholder="Email or Username"
             onChange={handleUsername}
           />
-          <br></br>
-          <label>password</label>
-          <input
+          
+          
+        </div>
+        <br />
+        <div class="txt_field">
+        <label>Password</label>
+        <br />
+        <input
             type="text"
             value={password}
-            placeholder="username"
+            placeholder="Password"
             onChange={handlePassword}
           />
-          <br></br>
-          <button>Login</button>
+          
+          
+        </div>
+        <br />
+        <div class="pass">
+          <a href="#">Forgot Password?</a>
+        </div>
+        <br />
+        <input type="submit" value="Login"/>
+
+        <div class="signup_link">
+          Not a member? <a href="#">Signup</a>
+        </div>
+
         </form>
       </div>
-    </div>
+    </body>
   );
 }
 
