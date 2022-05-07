@@ -1,32 +1,33 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import validator from "validator";
 import classes from "./SignUpScreen.module.css";
 
 function SignUpScreen() {
-  const [Email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
+  // const [Email, setEmail] = useState("");
+  // const [password, setpassword] = useState("");
   const [messageEmail, setmessageEmail] = useState("");
   const [messagePassword, setmessagePassword] = useState("");
 
+  const EmailRef = useRef(null);
+  const PasswordRef = useRef(null);
+
   const handleEmail = (e) => {
-    setEmail(e.target.value);
-    if (validator.isEmail(Email)) {
+    if (validator.isEmail(EmailRef.current.value)) {
       setmessageEmail("Valid");
     } else {
       setmessageEmail("NOT A VALID EMAIL");
     }
   };
   const handlePassword = (e) => {
-    setpassword(e.target.value);
-    if (password.length < 6) {
+    if (PasswordRef.current.value.length < 6) {
       setmessagePassword("password must be at least 6 characters");
     } else {
       setmessagePassword("valid");
     }
   };
   const handleSubmit = (e) => {
-    console.log("hi");
+    console.log(PasswordRef.current.value);
     e.preventDefault();
   };
   return (
@@ -39,7 +40,7 @@ function SignUpScreen() {
           <label>Username</label>
           <input
             type="text"
-            value={Email}
+            ref={EmailRef}
             placeholder="username"
             onChange={handleEmail}
           />
@@ -48,7 +49,7 @@ function SignUpScreen() {
           <label>password</label>
           <input
             type="text"
-            value={password}
+            ref={PasswordRef}
             placeholder="username"
             onChange={handlePassword}
           />

@@ -8,9 +8,6 @@ function App() {
     <>
       {" "}
       <div>
-        <LoginScreen />
-      </div>
-      <div>
         <SignUpScreen />
       </div>
     </>
