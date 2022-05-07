@@ -23,7 +23,6 @@ function LoginScreen() {
         <h1>Login</h1>
         <br />
         <form>
-<<<<<<< HEAD
           <div className={classes.txt_field}>
             <label>Email or Username</label>
             <br />
@@ -48,36 +47,6 @@ function LoginScreen() {
           <div className={classes.signup_link}>
             Not a member? <a href="#">Signup</a>
           </div>
-=======
-        <div className={classes.txt_field}>
-        <label>Email or Username</label>
-        <br />
-        <input
-            type="text"
-            value={username}
-            placeholder="Email or Username"
-            onChange={handleUsername}
-          />
-        </div>
-        <div className={classes.txt_field}>
-        <label>Password</label>
-        <br />
-        <input
-            type="text"
-            value={password}
-            placeholder="Password"
-            onChange={handlePassword}
-          />
-        </div>
-        
-        <div className={classes.pass}>
-          <a href="#">Forgot Password?</a>
-        </div>
-        <input type="submit" value="Login"/>
-        <div className={classes.signup_link}>
-          Not a member? <a href="#">Signup</a>
-        </div>
->>>>>>> 207a22945803ea9c7b8210281ea55ad830f1dd67
         </form>
       </div>
     </body>
