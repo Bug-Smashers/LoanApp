@@ -2,7 +2,7 @@ import React from 'react';
 import classes from "./LoginScreen.module.css";
 import { useForm } from 'react-hook-form';
 import { useRef,useState } from "react";
-import Document from './Document';
+
 function UserdataIn() { 
     // const {aadhardoc,handleSubmit}=useForm();
     // const aadhar_number = useRef(null);
@@ -12,7 +12,7 @@ function UserdataIn() {
     // }
     const AadharNum = useRef(null);
     const AadharDoc = useRef(null);
-    const [AadharDoc2,setAadharDoc2]=useState(null);
+    // const [AadharDoc2,setAadharDoc2]=useState(null);
 
     const PanNum = useRef(null);
     const PanDoc = useRef(null);
@@ -20,8 +20,14 @@ function UserdataIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(AadharDoc.current.value);
-        setAadharDoc2(e.current.file[0]);
-        console.log(AadharDoc2.type);
+        // setAadharDoc2(e.current.file[0]);
+        // console.log(AadharDoc2.type);
+
+        const reader=new FileReader()
+        reader.onload=function(){
+            console.log(reader.result)
+        }
+        reader.readAsText(AadharDoc.current)
     };
 
     return (
