@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import LoginScreen from "./LoginScreen";
 import SignUpScreen from "./SignUpScreen";
-import Userdata from "./userdatainput";
+import Userdata from "./Userdata";
 
 function App() {
   return (
