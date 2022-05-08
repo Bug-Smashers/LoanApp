@@ -26,10 +26,20 @@ function SignUpScreen() {
       setmessagePassword("valid");
     }
   };
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     console.log(PasswordRef.current.value);
     e.preventDefault();
-  };
+    const response = await fetch("http://localhost:3001/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        Email: EmailRef.current.value,
+        Password: PasswordRef.current.value,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  }
   return (
     <div className={classes.Main}>
       <div className={classes.Logo}>
