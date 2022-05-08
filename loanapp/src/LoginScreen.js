@@ -3,20 +3,24 @@ import classes from "./LoginScreen.module.css";
 import { useRef } from "react";
 
 function LoginScreen() {
-  // const [username, setUsername] = useState("");
-  // const [password, setpassword] = useState("");
-  // const handleUsername = (e) => {
-  //   setUsername(e.target.value);
-  // };
-  // const handlePassword = (e) => {
-  //   setpassword(e.target.value);
-  // };
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
-  const handleSubmit = (e) => {
+
+  async function handleSubmit(e) {
+    console.log(passwordRef.current.value);
     e.preventDefault();
-    console.log(usernameRef.current.value);
-  };
+    const response = await fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        Email: usernameRef.current.value,
+        Password: passwordRef.current.value,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
   return (
     <body>
       <div className={classes.center}>
