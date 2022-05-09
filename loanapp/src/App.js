@@ -11,7 +11,8 @@ function App() {
       {" "}
       <div>
         <h1>dfjlksafks</h1>
-        <UserIn />
+        {/* <UserIn /> */}
+        <SignUpScreen />
       </div>
     </>
   );

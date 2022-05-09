@@ -13,6 +13,7 @@ function SignUpScreen() {
   const PasswordRef = useRef(null);
 
   const handleEmail = (e) => {
+    
     if (validator.isEmail(EmailRef.current.value)) {
       setmessageEmail("Valid");
     } else {
@@ -27,18 +28,41 @@ function SignUpScreen() {
     }
   };
   async function handleSubmit(e) {
-    console.log(PasswordRef.current.value);
-    e.preventDefault();
-    const response = await fetch("http://localhost:3001/register", {
-      method: "POST",
+    // console.log(PasswordRef.current.value);
+
+    const res1 = await fetch("http://localhost:3001/getusers", {
+      
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        Email: EmailRef.current.value,
-        Password: PasswordRef.current.value,
-      }),
     });
-    const data = await response.json();
-    console.log(data);
+    const data1=await res1.json();
+    var f=false
+    data1.forEach(e => {
+      if(e.username==EmailRef.current.value){
+        f=true
+      }
+    });
+    if(f){
+      e.preventDefault();
+      alert("user is already registered")
+    }
+    else{
+      e.preventDefault();
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: EmailRef.current.value,
+          password: PasswordRef.current.value,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      alert("user is successfully registered")
+    }
+
+
+
+
   }
   return (
     <div className={classes.Main}>

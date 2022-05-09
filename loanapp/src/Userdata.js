@@ -40,7 +40,7 @@ function UserdataIn() {
         <div className={classes.file}>
           <input
             type="file"
-            onChange={(e) => setAadharDoc2(e.current.files[0])}
+            // onChange={(e) => setAadharDoc2(e.current.files[0])}
           />
         </div>
         <div className={classes.txt_field}>
