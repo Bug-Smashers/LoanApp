@@ -3,21 +3,35 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const user1=User.schemadetail;
+const userdetail=require('./userdetail');
+const userPersonaldetails=require("./models/userPersonaldetails")
+const upload =require("./middleware/upload");
+
+
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/loanapp");
+mongoose.connect("mongodb+srv://loanapi:loanapi@cluster0.sdy8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(()=>{
+  console.log("db is connected")
+})
+
+app.get("/getusers",userdetail.fetchData)
 
 app.post("/register", async (req, res, next) => {
-  console.log(req.body);
+  console.log(user1)
+  const {username}=req.body;
+  const {password}=req.body;
+  // username: req.body.Email,
+  // console.log(username)
+  //     password: req.body.password,
+
+ 
   try {
-    const user = User.create({
-      username: req.body.Email,
-      password: req.body.password,
-    });
-    const created = await user.save();
-    console.log(created);
-    res.json({ status: "ok" });
+
+    const user =new  user1({username,password});
+    await user.save();
+   return  res.json(await user1.find());
   } catch (err) {
     res.json({ status: "error" });
   }
@@ -36,6 +50,27 @@ app.post("/login", async (req, res, next) => {
     return res.json({ status: "error" });
   }
 });
+
+app.post('/personal',upload.single("documenttype"), (req,res)=>{
+  let userpersonal=new userPersonaldetails();
+
+  if(req.file){
+      userpersonal.documenttype =req.file.path;
+  }
+  userpersonal.save()
+  .then(response=>{
+      res.json({
+          message:"file is uploaded successfully"
+      })
+  }).catch(error=>{
+      res.json({
+          message:"an errror occured"
+      })
+  })
+  
+  
+})
+
 
 app.listen(3001, () => {
   console.log("at port 3001");

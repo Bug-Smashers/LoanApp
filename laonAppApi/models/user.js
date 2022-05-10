@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const User = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true
+    },
     password: { type: String, required: true },
   },
   { collection: "user-data" }
@@ -10,4 +11,16 @@ const User = new mongoose.Schema(
 
 const model = mongoose.model("userData", User);
 
-module.exports = model;
+module.exports=
+{schemadetail:model,
+  userdetail:{
+    fetchData:function(callback){
+      var userData=model.find({});
+      userData.exec(function(err,data){
+        if(err) throw err;
+        return callback(data);
+      })
+    }
+  }
+  }
+

@@ -9,6 +9,11 @@ function App() {
     <>
       {" "}
       <div>
+<<<<<<< HEAD
+=======
+        <h1>dfjlksafks</h1>
+        {/* <UserIn /> */}
+>>>>>>> 50026b6d8e50fbaf4a41e0a69a1ccf676464b6fd
         <SignUpScreen />
       </div>
     </>
