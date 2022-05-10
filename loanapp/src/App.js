@@ -5,12 +5,13 @@ import SignUpScreen from "./SignUpScreen";
 import Userdata from "./Userdata";
 import Document from "./Document";
 import UserIn from "./UserIn";
+import Webcam from ""
 function App() {
   return (
     <>
-      {" "}
+      
       <div>
-        <SignUpScreen />
+        <Webcam/>
       </div>
     </>
   );
