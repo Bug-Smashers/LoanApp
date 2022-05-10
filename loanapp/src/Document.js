@@ -1,58 +1,29 @@
-import React,{Component} from 'react';
-var x=0;
-class Document extends Component {
-	state = {
-	selectedFile: null
-	};
-	onFileChange = event => {
-	this.setState({ selectedFile: event.target.files[0] });
-	
-	};
-	onFileUpload = () => {
-	// Create an object of formData
-	const formData = new FormData();
-	// Update the formData object
-	formData.append(
-		"myFile",
-		this.state.selectedFile,
-		this.state.selectedFile.name
-	);
-	// Details of the uploaded file
-	console.log(this.state.selectedFile);
-	// Request made to the backend api
-	// Send formData object
-	// axios.post("api/uploadfile", formData);
-	};
-	
-	fileData = () => {
-	if (!this.state.selectedFile) {
-		
-		return (
-            <div>
-                <br />
-                <h4>Choose before Pressing the Upload button</h4>
-            </div>
-            );
-	}
-	};
-	render() {
-	return (
-		<div>
+import React from "react";
+import { useForm } from "react-hook-form";
 
-			<div>
-                {x++?	(<>
-                <label htmlFor="">Upload Pan</label>
-                <input type="file" onChange={this.onFileChange} /><button onClick={this.onFileUpload}>
-                        Upload!
-                    </button></>):(     <>
-                <label htmlFor="">Upload Aadhar</label>
-                <input type="file" onChange={this.onFileChange} /><button onClick={this.onFileUpload}>
-                        Upload!
-                    </button></>)
-                    }
-			</div>
-		</div>
-	);
-	}
+function App() {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("documentaadhar", data.file[0]);
+
+    const res = await fetch("http://localhost:3001/aadhar", {
+      method: "POST",
+      body: formData,
+    }).then((res) => res.json());
+    alert(JSON.stringify(`${res.message}, status: ${res.status}`));
+  };
+
+  return (
+    <div className="App">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="file" {...register("file")} />
+
+        <input type="submit" />
+      </form>
+    </div>
+  );
 }
-export default Document;
+
+export default App;
