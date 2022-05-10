@@ -1,107 +1,74 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from "react";
 
-import './Webcam.css';
+// import "bootstrap/dist/css/bootstrap.min.css";
 
-class Webcam extends Component {
-    state = {
-        imageURL: '',
-    }
+function Webcam() {
+  let videoRef = useRef(null);
 
-    videoEle = React.createRef();
-    canvasEle = React.createRef();
-    imageEle = React.createRef();
+  let photoRef = useRef(null)
 
-    componentDidMount = async () => {
-        this.startCamera();
-    }
+  const getVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: true
+      })
+      .then((stream) => {
+        let video = videoRef.current;
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
-    startCamera = async () => {
-        try {
-            const stream =  await navigator.mediaDevices.getUserMedia({
-                video: true
-            });
-
-            this.videoEle.current.srcObject = stream;
-            
-        } catch(err) {
-            console.log(err);
-        }
-    }
-
-
-    takeSelfie = async () => {
-        // Get the exact size of the video element.
-        const width = this.videoEle.current.videoWidth;
-        const height = this.videoEle.current.videoHeight;
-
-        // get the context object of hidden canvas
-        const ctx = this.canvasEle.current.getContext('2d');
-
-        // Set the canvas to the same dimensions as the video.
-        this.canvasEle.current.width = width;
-        this.canvasEle.current.height = height;
-
-        // Draw the current frame from the video on the canvas.
-        ctx.drawImage(this.videoEle.current, 0, 0, width, height);
-
-        // Get an image dataURL from the canvas.
-        const imageDataURL = this.canvasEle.current.toDataURL('image/png');
-        this.stopCam();
-
-        this.setState({
-            imageURL: imageDataURL
-        })
-    }
-
-    stopCam = () => {
-        const stream = this.videoEle.current.srcObject;
-        const tracks = stream.getTracks();
-        
-        tracks.forEach(track => {
-          track.stop();
-        });
-    }
-
-    backToCam = () => {
-        this.setState({
-            imageURL: ''
-        }, () => {
-            this.startCamera();
-        })
-    }
-
+  const takePicture = () => {
+    const width = 400
+    const height = width / (16 / 9)
     
+    let video = videoRef.current
 
-    render() {
-        return (<div className="selfie">
-            {this.state.imageURL === '' && <div className="cam">
-                <video width="100%" height="100%" className="video-player" autoPlay={true} ref={this.videoEle}></video>
-                <button className="btn capture-btn" onClick={this.takeSelfie}>
-                    <i class="fa fa-camera" aria-hidden="true"></i>
-                </button>
-            </div>
-            }
+    let photo = photoRef.current
 
+    photo.width = width
 
-            <canvas ref={this.canvasEle} style={{display: 'none'}}></canvas>
-            {this.state.imageURL !== '' && <div className="preview">
-                <img className="preview-img" src={this.state.imageURL} ref={this.imageEle} />
+    photo.height = height
 
-                <div className="btn-container">
-                    <button className="btn back-btn" onClick={this.backToCam}>
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </button>
-                    <a href={this.state.imageURL} download="selfie.png"
-                     className="btn download-btn">
-                        <i class="fa fa-download" aria-hidden="true"></i>
-                    </a>
-                </div>
+    let ctx = photo.getContext('2d')
+    console.log(ctx);
+    ctx.drawImage(video, 0, 0, width, height)
+     console.log(photo);
+    // var canvas=document.getElementById("canvas");
+    // var imageURI = canvas.toDataURL("image/jpg");
+    // console.log(imageURI);
+  }
 
-            </div>
-            }
+  const clearImage = () => {
+    let photo = photoRef.current
 
-        </div>)
-    }
+    let ctx = photo.getContext('2d')
+
+    ctx.clearRect(0,0,photo.width,photo.height)
+  }
+
+  useEffect(() => {
+    getVideo();
+  }, [videoRef]);
+
+  return (
+    <div className="container">
+      <h1 className="text-center">Camera Selfie App in React</h1>
+
+      <video ref={videoRef} className="container"></video>
+
+      <button onClick={takePicture} className="btn btn-danger container">Take Picture</button>
+      <canvas className="canvas" ref={photoRef}></canvas>
+
+      <button onClick={clearImage} className="btn btn-primary container">Clear Image</button>
+
+      <br/><br/>
+    </div>
+  );
 }
 
-export default Selfie;
+export default Webcam;
