@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import validator from "validator";
 import classes from "./SignUpScreen.module.css";
+import axios from 'react'
 
 function SignUpScreen() {
   // const [Email, setEmail] = useState("");
@@ -29,24 +30,29 @@ function SignUpScreen() {
   async function handleSubmit(e) {
     console.log(PasswordRef.current.value);
     e.preventDefault();
-    const response = await fetch("http://localhost:3001/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    // const response = await fetch("http://localhost:3001/register", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     Email: EmailRef.current.value,
+    //     Password: PasswordRef.current.value,
+    //   }),
+    // });
+    // const data = await response.json();
+    // console.log(data);
+    axios.post("http://localhost:3001/register", {
         Email: EmailRef.current.value,
         Password: PasswordRef.current.value,
-      }),
-    });
-    const data = await response.json();
-    console.log(data);
+      })
+    .then(res=>console.log(res))
   }
   return (
-    <div className={classes.Main}>
+    <div className={classes.center}>
       <div className={classes.Logo}>
         <p>LOGO</p>
       </div>
-      <div className={classes.box}>
         <form>
+        <div className={classes.txt_field}>
           <label>Username</label>
           <input
             type="text"
@@ -54,11 +60,12 @@ function SignUpScreen() {
             placeholder="username"
             onChange={handleEmail}
           />
+          </div>
           {messageEmail}
           <br></br>
           <label>password</label>
           <input
-            type="text"
+            type="password"
             ref={PasswordRef}
             placeholder="username"
             onChange={handlePassword}
@@ -67,7 +74,6 @@ function SignUpScreen() {
           <br></br>
           <button onClick={handleSubmit}>SignUp</button>
         </form>
-      </div>
     </div>
   );
 }

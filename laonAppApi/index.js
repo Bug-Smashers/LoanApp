@@ -6,12 +6,14 @@ const User = require("./models/user");
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/loanapp");
+mongoose.connect("mongodb+srv://loanapi:loanapi@cluster0.sdy8u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(()=>{
+  console.log("db is connected");
+})
 
 app.post("/register", async (req, res, next) => {
-  console.log(req.body);
+  
   try {
-    const user = User.create({
+    const user = new User({
       username: req.body.Email,
       password: req.body.password,
     });
@@ -19,6 +21,7 @@ app.post("/register", async (req, res, next) => {
     console.log(created);
     res.json({ status: "ok" });
   } catch (err) {
+    console.log("djkfsaf",req.body);
     res.json({ status: "error" });
   }
 });
