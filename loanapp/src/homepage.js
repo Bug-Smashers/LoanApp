@@ -1,6 +1,6 @@
 import React from "react";
 
-function home() {
-  return <div>Hello user</div>;
+function Homepage() {
+  return <div>Hello</div>;
 }
-export default home;
+export default Homepage;
