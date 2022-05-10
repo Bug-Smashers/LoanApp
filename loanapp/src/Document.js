@@ -49,7 +49,6 @@ class Document extends Component {
                 <input type="file" onChange={this.onFileChange} /><button onClick={this.onFileUpload}>
                         Upload!
                     </button></>)
-               
                     }
 			</div>
 		</div>
