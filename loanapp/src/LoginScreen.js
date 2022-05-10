@@ -18,7 +18,7 @@ function LoginScreen() {
     const data1=await res1.json();
     var f=false
     data1.forEach(e => {
-      if(e.username==EmailRef.current.value  && e.password==passwordRef.current.value){
+      if(e.username===EmailRef.current.value  && e.password===passwordRef.current.value){
         f=true
       }
     });

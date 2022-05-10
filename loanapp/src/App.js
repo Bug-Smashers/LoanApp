@@ -10,7 +10,7 @@ import { login, logout, selectUser } from "./features/userSlice";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   
-  
+  user="kalyan"
   return (
     <>
       <Router>{!user ? <SignUpScreen /> : <LoginScreen />}</Router>
