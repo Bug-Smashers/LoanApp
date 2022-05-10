@@ -17,6 +17,13 @@ function LoginScreen() {
     const res1 = await fetch("http://localhost:3001/getusers", {
       headers: { "Content-Type": "application/json" },
     });
+<<<<<<< HEAD
+    const data1=await res1.json();
+    var f=false
+    data1.forEach(e => {
+      if(e.username===EmailRef.current.value  && e.password===passwordRef.current.value){
+        f=true
+=======
     const data1 = await res1.json();
     var f = false,
       f1 = false,
@@ -34,6 +41,7 @@ function LoginScreen() {
         f1 = true;
       } else if (e.username !== usernameRef.current.value) {
         f2 = true;
+>>>>>>> c2fb272fad2bef0eba9106a5c74fb0d572bfcf91
       }
     });
     if (f) {

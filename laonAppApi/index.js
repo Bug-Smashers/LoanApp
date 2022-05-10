@@ -6,6 +6,11 @@ const User = require("./models/user");
 const user1=User.schemadetail;
 const userdetail=require('./userdetail');
 const userPersonaldetails=require("./models/userPersonaldetails")
+const firstdetail=userPersonaldetails.firstdetail;
+
+const aadhardetail=userPersonaldetails.seconddetail;
+const pandetail=userPersonaldetails.thirddetail;
+const thirddetail=userPersonaldetails.forthdetail;
 const upload =require("./middleware/upload");
 
 
@@ -37,27 +42,34 @@ app.post("/register", async (req, res, next) => {
   }
 });
 
-app.post("/login", async (req, res, next) => {
-  console.log(req.body);
-  const user = await User.findOne({
-    username: req.body.Email,
-    password: req.body.Password,
-  });
-  console.log(user);
-  if (user) {
-    return res.json({ status: "ok" });
-  } else {
-    return res.json({ status: "error" });
-  }
-});
 
-app.post('/personal',upload.single("documenttype"), (req,res)=>{
-  let userpersonal=new userPersonaldetails();
+app.post('/personal', async(req,res)=>{
+  const {name}=req.body;
+  const {email}=req.body;
+  const {aadharnumber}=req.body;
+  const {pannumber}=req.body;
+
+  try {
+
+    const user =new  firstdetail({name,email,aadharnumber,pannumber});
+    await user.save();
+   return  res.json(await user1.find());
+  } catch (err) {
+    res.json({ status: "error" });
+  }
+  
+  
+})
+
+//for aadhar
+app.post('/aadhar',upload.single("documentaadhar"),(req,res)=>{
+
+  let aadhar=new aadhardetail();
 
   if(req.file){
-      userpersonal.documenttype =req.file.path;
+    aadhar.documentaadhar =req.file.path;
   }
-  userpersonal.save()
+  aadhar.save()
   .then(response=>{
       res.json({
           message:"file is uploaded successfully"
@@ -70,6 +82,28 @@ app.post('/personal',upload.single("documenttype"), (req,res)=>{
   
   
 })
+
+//for pan
+app.post('/pan',upload.single("documentpan"),(req,res)=>{
+  let pan=new pandetail();
+
+  if(req.file){
+      pan.documentpan =req.file.path;
+  }
+  pan.save()
+  .then(response=>{
+      res.json({
+          message:"file is uploaded successfully"
+      })
+  }).catch(error=>{
+      res.json({
+          message:"an errror occured"
+      })
+  })
+  
+  
+})
+
 
 
 app.listen(3001, () => {
