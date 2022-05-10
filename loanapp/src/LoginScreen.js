@@ -9,16 +9,23 @@ function LoginScreen() {
   async function handleSubmit(e) {
     console.log(passwordRef.current.value);
     e.preventDefault();
-    const response = await fetch("http://localhost:3001/login", {
-      method: "POST",
+    // Email: usernameRef.current.value,
+    //     Password: passwordRef.current.value,
+    const res1 = await fetch("http://localhost:3001/getusers", {
+      
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        Email: usernameRef.current.value,
-        Password: passwordRef.current.value,
-      }),
     });
-    const data = await response.json();
-    console.log(data);
+    const data1=await res1.json();
+    var f=false
+    data1.forEach(e => {
+      if(e.username==EmailRef.current.value  && e.password==passwordRef.current.value){
+        f=true
+      }
+    });
+    if(f){
+      e.preventDefault();
+      alert("user is already registered")
+    }
   }
 
   return (
