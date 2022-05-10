@@ -1,34 +1,33 @@
 import React from "react";
 import classes from "./LoginScreen.module.css";
-import { useForm } from 'react-hook-form';
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 
-function UserdataIn() { 
-    // const {aadhardoc,handleSubmit}=useForm();
-    // const aadhar_number = useRef(null);
-    // const pan_number = useRef(null);
-    // const onSubmit=(data)=>{
-    //     console.log(data);
-    // }
-    const AadharNum = useRef(null);
-    const AadharDoc = useRef(null);
-    // const [AadharDoc2,setAadharDoc2]=useState(null);
+function UserdataIn() {
+  // const {aadhardoc,handleSubmit}=useForm();
+  // const aadhar_number = useRef(null);
+  // const pan_number = useRef(null);
+  // const onSubmit=(data)=>{
+  //     console.log(data);
+  // }
+  const AadharNum = useRef(null);
+  const AadharDoc = useRef(null);
+  const [AadharDoc2, setAadharDoc2] = useState(null);
 
   const PanNum = useRef(null);
   const PanDoc = useRef(null);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(AadharDoc.current.value);
-        // setAadharDoc2(e.current.file[0]);
-        // console.log(AadharDoc2.type);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(AadharDoc.current.value);
+    // setAadharDoc2(e.current.file[0]);
+    // console.log(AadharDoc2.type);
 
-        const reader=new FileReader()
-        reader.onload=function(){
-            console.log(reader.result)
-        }
-        reader.readAsText(AadharDoc.current)
+    const reader = new FileReader();
+    reader.onload = function () {
+      console.log(reader.result);
     };
+    reader.readAsText(AadharDoc.current);
+  };
 
   return (
     <div className={classes.documents}>
